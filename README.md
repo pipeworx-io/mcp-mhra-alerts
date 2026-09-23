@@ -2,7 +2,7 @@
 
 UK medicines and medical device **safety alerts, recalls and safety-signal bulletins** published by the MHRA on GOV.UK. Keyless.
 
-Part of [Pipeworx](https://pipeworx.io) — an MCP gateway connecting AI agents to 1576+ live data sources.
+Part of [Pipeworx](https://pipeworx.io) — an MCP gateway connecting AI agents to 1663+ live data sources.
 
 Companion to `@pipeworx/mhra-uk`, which covers MHRA *product* documents (SmPC, PIL, PAR) — what a licensed medicine is and what its label says. This pack covers what went wrong with one: batch recalls, field safety notices, device safety information and prescriber safety advice.
 
@@ -86,7 +86,7 @@ directly, instead of just this one's:
 }
 ```
 
-Both URLs reach the same gateway and the same 1576+ data sources. The
+Both URLs reach the same gateway and the same 1663+ data sources. The
 only difference is which pack's tools are listed **directly**; `ask_pipeworx`
 reaches all of them from either one.
 
