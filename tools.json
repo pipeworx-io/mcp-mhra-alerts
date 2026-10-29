@@ -1,0 +1,88 @@
+[
+  {
+    "name": "mhra_safety_alerts",
+    "description": "UK medicines and medical device safety alerts published by the MHRA on GOV.UK: Class 1-4 medicines recalls with affected batch numbers, Field Safety Notices from device manufacturers, device safety information, and National Patient Safety Alerts. Answers \"has this medicine or device been recalled in the UK\", \"which batches were withdrawn\", and \"what safety alerts were issued last month\". Returns each alert with its title, alert category, issue date, one-line summary and GOV.UK URL; filter by free text, category, issue-date range and clinical specialism.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "Free-text search over alert titles and summaries, e.g. a medicine name (\"fingolimod\"), a manufacturer (\"Zentiva\") or a device type (\"infusion pump\")."
+        },
+        "alert_type": {
+          "type": "string",
+          "description": "Restrict to one alert category. One of: field-safety-notices, medicines-recall-notification, device-safety-information, national-patient-safety, mhra-safety-round-up."
+        },
+        "issued_from": {
+          "type": "string",
+          "description": "Earliest issue date, YYYY-MM-DD."
+        },
+        "issued_to": {
+          "type": "string",
+          "description": "Latest issue date, YYYY-MM-DD."
+        },
+        "specialism": {
+          "type": "string",
+          "description": "Clinical specialism slug the alert is tagged for, e.g. \"pharmacy\", \"dispensing-gp-practices\", \"medical-devices\"."
+        },
+        "sort": {
+          "type": "string",
+          "description": "\"newest_issued\" (default) orders by the date MHRA issued the alert; \"newest_published\" orders by when the GOV.UK page went live. They differ — a weekly notice issued on the 31st can publish on the 9th of the next month."
+        },
+        "limit": {
+          "type": "number",
+          "description": "Alerts to return, 1-100 (default 20)."
+        },
+        "offset": {
+          "type": "number",
+          "description": "Results to skip, for paging (default 0)."
+        }
+      }
+    }
+  },
+  {
+    "name": "mhra_alert_detail",
+    "description": "Full text of one MHRA safety alert or recall from GOV.UK, given the alert URL or path returned by mhra_safety_alerts. Returns the complete notice as plain text — for a medicines recall that means the affected batch numbers and expiry dates, the marketing authorisation (PL) number, the active ingredient, the recall class and the action the recipient must take — plus the issue date, alert category and any withdrawal notice.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "The alert URL or GOV.UK path, e.g. \"/drug-device-alerts/class-2-medicines-recall-zentiva-pharma-uk-limited-fingolimod-zentiva-0-dot-5-mg-capsules-el-26-a-slash-37\" or the full https://www.gov.uk/... form."
+        }
+      },
+      "required": [
+        "url"
+      ]
+    }
+  },
+  {
+    "name": "mhra_drug_safety_update",
+    "description": "Articles from Drug Safety Update, the MHRA monthly bulletin that tells UK prescribers about new safety signals: new contraindications, updated warnings, restricted indications and monitoring advice for medicines already in use. The UK counterpart to an FDA drug safety communication. Answers \"what new safety advice has the MHRA issued about this medicine\". Returns title, publication date, summary and GOV.UK URL; filter by free text and date range, then pass a URL to mhra_alert_detail for the full article.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "Free-text search, e.g. a drug name (\"metformin\", \"domperidone\") or a safety topic (\"angioedema\")."
+        },
+        "published_from": {
+          "type": "string",
+          "description": "Earliest publication date, YYYY-MM-DD."
+        },
+        "published_to": {
+          "type": "string",
+          "description": "Latest publication date, YYYY-MM-DD."
+        },
+        "limit": {
+          "type": "number",
+          "description": "Articles to return, 1-100 (default 20)."
+        },
+        "offset": {
+          "type": "number",
+          "description": "Results to skip, for paging (default 0)."
+        }
+      }
+    }
+  }
+]
